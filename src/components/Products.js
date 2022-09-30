@@ -1,4 +1,3 @@
-import AvailableProducts from "./AvailableProducts";
 
 const Products = (props) => {
     return(
@@ -6,10 +5,10 @@ const Products = (props) => {
             <div>
                 <h2>{props.title}</h2>
                 <h3>{props.price}</h3>
-                <h4>{props.imageUrl}</h4>
+                <img src={props.imageUrl} alt='website album-imgs'/>
             </div>
         </li>
-    )
+    );
 };
 
 export default Products;
