@@ -1,0 +1,31 @@
+.footer {
+    display: flex;
+    width: 100%;
+    text-align: start;
+    padding-bottom: 70px;
+    background-color: #56ccf2;
+    justify-content: space-between;
+  }
+  
+  .footer ul {
+    list-style: none;
+    display: flex;
+    position: absolute;
+    right: 80px;
+    justify-content: space-around;
+  }
+  
+  .footer li {
+    padding: 10px;
+    margin: 0px 20px;
+  }
+  
+  .footer h1 {
+    color: white;
+    font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+      "Lucida Sans", Arial, sans-serif;
+    font-size: 60px;
+    width: 70%;
+    margin: 0 auto;
+  }
+  
