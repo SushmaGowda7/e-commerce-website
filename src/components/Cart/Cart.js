@@ -4,39 +4,18 @@ import Button from '../UI/Button';
 import classes from'./Cart.module.css';
 import CartCloseButton from './CartCloseButton';
 import Modal from '../UI/Modal';
+import CartItems from "./CartItems";
 
 const Cart = (props) => {
 
     const cartCtx = useContext(CartContext);
-
-//     const CartItems = <ul className={classes.cart}>{[
-//         {
-//             title: 'Colors',
-//             price: 100,
-//             imageUrl: 'https://prasadyash2411.github.io/ecom-website/img/Album%201.png',
-//             quantity: 2
-//         },
-//         {
-//             title: 'Black and white Colors',
-//             price: 50,
-//             imageUrl: 'https://prasadyash2411.github.io/ecom-website/img/Album%202.png',
-//             quantity: 3
-//         },
-//         {
-//             title: 'Yellow and Black Colors',
-//             price: 70,
-//             imageUrl: 'https://prasadyash2411.github.io/ecom-website/img/Album%203.png',
-//             quantity: 1
-//         }
-//     ].map((item) => (<li>{item.title}</li>))
-// }</ul>
-
-const price = cartCtx.price.toFixed(2);
-const CartItems = cartCtx.items.map((item) => (
-    <ul className={classes.ul}>
-        <CartItems product={item} />
-    </ul>
-))
+    const price = cartCtx.price.toFixed(2);
+    
+    const cartItemsList = cartCtx.items.map((item) => (
+        <ul className={classes.ul}>
+            <CartItems product={item} />
+        </ul>
+    ));
     
 return(
     <Modal onClose={props.onClose}>
@@ -49,7 +28,7 @@ return(
           <span className={classes.quantity}>QUANTITY</span>
           </div>
         <div>
-            {CartItems}
+            {cartItemsList}
             <span className={classes['cart-total']}>
                 <span>${price}</span>
                 <strong>Total</strong>

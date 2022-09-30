@@ -9,10 +9,9 @@ const Products = (props) => {
 
   const price = `$${props.data.price}`;
 
-  const addItemHandler = () => {
+  const addItemHandler = (item) => {
     cartCtx.addItem({...props.data, quantity: 1})
   }
-
 
   return (
     <li key={props.data.id} id={props.id}>

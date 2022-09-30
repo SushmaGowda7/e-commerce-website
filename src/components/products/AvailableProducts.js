@@ -35,12 +35,9 @@ const AvailableProducts = (props) => {
       ));
 
     return(
-        <section className={classes.wrap}>
-            <h2>STORE</h2>
             <div className={classes.container}>
                 {productList}
             </div>
-        </section>
     )
 };
 
