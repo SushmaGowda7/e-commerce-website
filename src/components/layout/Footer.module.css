@@ -4,14 +4,14 @@
     text-align: start;
     padding-bottom: 70px;
     background-color: #56ccf2;
-    justify-content: space-between;
+    justify-content: space-around;
   }
   
   .footer ul {
     list-style: none;
     display: flex;
     position: absolute;
-    right: 80px;
+    right: 130px;
     justify-content: space-around;
   }
   
@@ -22,10 +22,11 @@
   
   .footer h1 {
     color: white;
-    font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
-      "Lucida Sans", Arial, sans-serif;
-    font-size: 60px;
-    width: 70%;
+    font-family: sans-serif;
+    font-size: 65px;
+    width: 80%;
+    font-weight: bold;
     margin: 0 auto;
+    justify-content: flex-start;
   }
   
