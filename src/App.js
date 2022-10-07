@@ -9,6 +9,7 @@ import { Route } from 'react-router-dom';
 import About from './components/pages/About';
 import Home from './components/pages/Home';
 import ContactUs from './components/pages/ContactUs';
+import ProductDetail from './components/products/ProductDetail';
 
 function App() {
 
@@ -50,11 +51,15 @@ function App() {
       {cartIsShown && <Cart onClose ={hideCartHandler}/>}
       <Header onShow={showCartHandler}/>
       <main>
-        <Route path='/home'>
+      <switch>
+        <Route path="/home">
           <Home />
         </Route>
-        <Route path="/store">
+        <Route path="/store" exact>
           <AvailableProducts />
+        </Route>
+        <Route path="/store/:productDetail" exact>
+          <ProductDetail />
         </Route>
         <Route path="/about">
           <About />
@@ -62,6 +67,7 @@ function App() {
         <Route path="/contactUs">
           <ContactUs onAddQuery={userInfoHandler}/>
         </Route>
+      </switch>
       </main>
       <div className={classes.footer}>
         <Footer />
