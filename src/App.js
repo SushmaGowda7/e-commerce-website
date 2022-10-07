@@ -8,6 +8,7 @@ import AvailableProducts from './components/products/AvailableProducts';
 import { Route } from 'react-router-dom';
 import About from './components/pages/About';
 import Home from './components/pages/Home';
+import ContactUs from './components/pages/ContactUs';
 
 function App() {
 
@@ -20,6 +21,29 @@ function App() {
   const hideCartHandler =() => {
     setCartIsShown(false)
   }
+
+  const userInfoHandler = async(info) => {
+    try{
+    const res = await fetch('https://e-commerce-af028-default-rtdb.firebaseio.com/userInfo.json',
+    {
+        method: 'POST',
+        body: JSON.stringify(info),
+        headers: {'Content-type': 'application/json'}
+    })
+
+    if(!res.ok)
+    {
+      throw new Error('Something went wrong!')
+    }
+
+    const data = await res.json();
+    console.log(data);
+  }
+  catch(err)
+  {
+    console.log(err);
+  }
+}
 
   return (
     <CartProvider>
@@ -34,6 +58,9 @@ function App() {
         </Route>
         <Route path="/about">
           <About />
+        </Route>
+        <Route path="/contactUs">
+          <ContactUs onAddQuery={userInfoHandler}/>
         </Route>
       </main>
       <div className={classes.footer}>
