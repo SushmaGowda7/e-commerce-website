@@ -67,16 +67,13 @@ function App() {
           {!authCntx.isLoggedIn && <Redirect to='/login'/>}
         </Route>
         <Route path="/about">
-          {authCntx.isLoggedIn && <About />}
-          {!authCntx.isLoggedIn && <Redirect to='/login'/>}
+          <About />
         </Route>
         <Route path="/login">
           <Login />
         </Route>
         <Route path="/contactUs">
-        {authCntx.isLoggedIn && (
-          <ContactUs onAddQuery={userInfoHandler}/>)}
-        {!authCntx.isLoggedIn && <Redirect to='/login'/>}
+          <ContactUs onAddQuery={userInfoHandler} />
         </Route>
       </switch>
       </main>
