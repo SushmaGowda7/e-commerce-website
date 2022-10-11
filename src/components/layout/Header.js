@@ -2,6 +2,7 @@ import React, { Fragment } from "react";
 import classes from "./Header.module.css";
 import CartButton from "./CartButton";
 import { NavLink } from "react-router-dom";
+import HeaderBottom from "./HeaderBottom";
 
 const Header = props => {
   return (
@@ -11,12 +12,10 @@ const Header = props => {
         <NavLink activeClassName={classes.active} to="/store">STORE</NavLink>
         <NavLink activeClassName={classes.active} to="/about">ABOUT</NavLink>
         <NavLink activeClassName={classes.active} to="/login">LOGIN</NavLink>
-        <NavLink activeClassName={classes.active} to="/contactUs">Contact-Us</NavLink>
+        <NavLink activeClassName={classes.active} to="/contactUs">CONTACT-US</NavLink>
         <CartButton onClick={props.onShow}/>
       </header>
-      <div className={classes.container}>
-        <h1>The Generics</h1>
-      </div>
+      <HeaderBottom />
     </Fragment>
   );
 };

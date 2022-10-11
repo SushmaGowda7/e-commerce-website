@@ -6,15 +6,14 @@ const CartButton =(props) => {
   
   const cartCntx = useContext(CartContext);
 
-  let quantity = 0;
-  cartCntx.items.forEach((item) => {
-    quantity = quantity + Number(item.quantity)
-  })
+  const numberOfCartItems = cartCntx.items.reduce((currentNum, item) => {
+    return currentNum + item.quantity;
+}, 0);
 
     return(
       <Fragment>
       <button className={classes.button} onClick={props.onClick}>
-        Cart <span className={classes.span}>{quantity}</span>
+        Cart <span className={classes.span}>{numberOfCartItems}</span>
       </button>
     </Fragment>
     )

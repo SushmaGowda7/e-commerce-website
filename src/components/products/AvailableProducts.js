@@ -1,5 +1,6 @@
 import Products from "./Products";
 import classes from "./AvailableProducts.module.css";
+import { Fragment } from "react";
 
 const AvailableProducts = (props) => {
     const productsArr = [
@@ -35,9 +36,12 @@ const AvailableProducts = (props) => {
       ));
 
     return(
+        <Fragment>
             <div className={classes.container}>
                 {productList}
             </div>
+          </Fragment>
+
     )
 };
 

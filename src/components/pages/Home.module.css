@@ -5,7 +5,11 @@
   text-align: center;
   padding: 0px 1rem;
 }
-
+.home h1{
+  font-family: "Metal Mania";
+  text-align: center;
+  font-size: 30px;
+}
 
 .wrapper {
   display: block;

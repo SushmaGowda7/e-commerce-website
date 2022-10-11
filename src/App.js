@@ -14,7 +14,6 @@ import Login from './components/pages/Login';
 import AuthContext from './components/store/auth-context';
 
 function App() {
-
   const [cartIsShown, setCartIsShown] = useState(false);
   const authCntx = useContext(AuthContext);
 
@@ -33,21 +32,18 @@ function App() {
         method: 'POST',
         body: JSON.stringify(info),
         headers: {'Content-type': 'application/json'}
-    })
+    });
 
     if(!res.ok)
     {
       throw new Error('Something went wrong!')
     }
-
     const data = await res.json();
     console.log(data);
-  }
-  catch(err)
-  {
+  } catch(err){
     console.log(err);
   }
-}
+};
 
   return (
     <CartProvider>
@@ -55,7 +51,10 @@ function App() {
       <Header onShow={showCartHandler}/>
       <main>
       <switch>
-        <Route path="/home" exact>
+        <Route path="/" exact>
+          <Home />
+        </Route>
+        <Route path="/home" >
           <Home />
         </Route>
         <Route path="/store" exact>

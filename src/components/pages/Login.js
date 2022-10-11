@@ -40,7 +40,7 @@ const Login = () => {
         }
     })
     .then((data) => {
-        authCntx.login(data.idToken);
+        authCntx.login(data.idToken, data.email);
         history.replace('/store');
     })
     .catch((err) => {
@@ -50,7 +50,7 @@ const Login = () => {
 
 return(
     <section className={classes.wrapper}>
-        <h1>LOGIN</h1>
+        <h1>User Login</h1>
             <form onSubmit={submitHandler} className={classes['login-form']}>
                 <label htmlFor="email-id">Email ID</label>
                 <input type="email" id="email" 
