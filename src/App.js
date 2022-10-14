@@ -1,9 +1,8 @@
-import { useContext, useState } from 'react';
+import { Fragment, useContext, useEffect, useState } from 'react';
 import classes from './App.module.css';
 import Cart from './components/Cart/Cart';
 import Footer from './components/layout/Footer';
 import Header from './components/layout/Header';
-import CartProvider from './components/store/CartProvider';
 import AvailableProducts from './components/products/AvailableProducts';
 import { Redirect, Route } from 'react-router-dom';
 import About from './components/pages/About';
@@ -12,10 +11,33 @@ import ContactUs from './components/pages/ContactUs';
 import ProductDetail from './components/products/ProductDetail';
 import Login from './components/pages/Login';
 import AuthContext from './components/store/auth-context';
+import CartContext from './components/store/cart-context';
+import axios from 'axios';
 
 function App() {
   const [cartIsShown, setCartIsShown] = useState(false);
+  const [cartLength, setCartLength] = useState(0);
+  
   const authCntx = useContext(AuthContext);
+  const cartCntx = useContext(CartContext);
+  console.log(cartCntx.items);
+
+  useEffect(() => {
+    const userEmailId = authCntx.email.split('@').join('');
+    const newEmailId = userEmailId.split('.').join('');
+
+    const getCart = async () => {
+      try {
+        const response = await axios.get(`https://crudcrud.com/api/13bebb7b723a4f5496dbc4056838b542/cart${newEmailId}`);
+        console.log(response);
+        console.log(response.data.length);
+        setCartLength(response.data.length);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    getCart();
+  }, [authCntx.email]);
 
   const showCartHandler =() => {
     setCartIsShown(true)
@@ -46,9 +68,9 @@ function App() {
 };
 
   return (
-    <CartProvider>
+    <Fragment>
       {cartIsShown && <Cart onClose ={hideCartHandler}/>}
-      <Header onShow={showCartHandler}/>
+      <Header onShow={showCartHandler} data={cartLength}/>
       <main>
       <switch>
         <Route path="/" exact>
@@ -79,7 +101,7 @@ function App() {
       <div className={classes.footer}>
         <Footer />
       </div>
-    </CartProvider>
+    </Fragment>
   );
 }
 
