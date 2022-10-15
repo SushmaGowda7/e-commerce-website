@@ -15,7 +15,7 @@ const CartProvider = (props) => {
     
     const userEmailId = authCntx.email.split('@').join('');
     const newEmailId = userEmailId.split('.').join('');  
-    const url = `https://crudcrud.com/api/13bebb7b723a4f5496dbc4056838b542/cart${newEmailId}`;
+    const url = `https://crudcrud.com/api/8d065053cb4547cda733e7ec5280cc1a/cart${newEmailId}`;
         
     const addItemsToCartHandler = async (product) => {
         
@@ -76,50 +76,14 @@ const CartProvider = (props) => {
         setQuantity(quantity);
     };
 
-    const removeItemsFromCartHandler = async(product) =>{
-        // console.log(`id:${product} Removing...`);
-        const indx = newArray.findIndex((item) => {
-            if(item.id === product.id){
-                console.log('executed')
-                return item;
-            } else {
-                return null;
-            }
+    const removeItemsFromCartHandler = (id) =>{
+        newArray.forEach((index) => {
+        if(id===index.id){
+            newArray.splice(index,1);
+        }
         })
-        console.log(indx);
-        if(indx === 1){
-        try{
-        const res = await axios.get(url)
-                 const mappingProduct = res.data.findIndex((item) => {
-                    if(item.id === product.id)
-                    {
-                        console.log('exe');
-                        return product;
-                    } else {
-                        console.log('exe');
-                        return null;
-                    }
-                 })
-                 console.log(res.data);
-                 console.log(res.data[mappingProduct])
-                
-                 let fetchProduct = res.data[mappingProduct]
-                 let id = fetchProduct._id;
-                 const response = await axios.delete(url+`/${id}`)
-                 console.log(response);
-                 console.log(response.data);
-
-                fetchProduct.forEach((element, index ) => {
-                    if(id === element.id){
-                        fetchProduct.splice(index, 1);
-                    }
-                setItems(fetchProduct);
-        })
-    }catch(err){
-        console.log(err);
+        setItems(newArray)
     }
-}
-};
 
     const cartFetchedItems = (cartLength, cartData) => {
         console.log(`cart fetched items`, cartLength, cartData);

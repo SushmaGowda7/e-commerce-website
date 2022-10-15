@@ -37,12 +37,10 @@ const AvailableProducts = (props) => {
     ];
 
     useEffect(() => {
-        const userEmailId = authCntx.email.split('@').join('');
-        const newEmailId = userEmailId.split('.').join('');
-
+        const newEmailId = authCntx.email.replace(/[^a-zA-Z0-9]/g, "");
         const getCart = async () => {
             try {
-                const res = await axios.get(`https://crudcrud.com/api/13bebb7b723a4f5496dbc4056838b542/cart${newEmailId}`);
+                const res = await axios.get(`https://crudcrud.com/api/8d065053cb4547cda733e7ec5280cc1a/cart${newEmailId}`);
                 
                 const cartData = res.data;
                 const cartLength = res.data.length;

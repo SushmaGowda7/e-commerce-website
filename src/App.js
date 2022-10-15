@@ -23,12 +23,10 @@ function App() {
   console.log(cartCntx.items);
 
   useEffect(() => {
-    const userEmailId = authCntx.email.split('@').join('');
-    const newEmailId = userEmailId.split('.').join('');
-
+    const newEmailId = authCntx.email.replace(/[^a-zA-Z0-9]/g, "");
     const getCart = async () => {
       try {
-        const response = await axios.get(`https://crudcrud.com/api/13bebb7b723a4f5496dbc4056838b542/cart${newEmailId}`);
+        const response = await axios.get(`https://crudcrud.com/api/8d065053cb4547cda733e7ec5280cc1a/cart${newEmailId}`);
         console.log(response);
         console.log(response.data.length);
         setCartLength(response.data.length);
@@ -37,7 +35,7 @@ function App() {
       }
     };
     getCart();
-  }, [authCntx.email]);
+  });
 
   const showCartHandler =() => {
     setCartIsShown(true)
@@ -46,26 +44,6 @@ function App() {
   const hideCartHandler =() => {
     setCartIsShown(false)
   }
-
-  const userInfoHandler = async(info) => {
-    try{
-    const res = await fetch('https://e-commerce-af028-default-rtdb.firebaseio.com/userInfo.json',
-    {
-        method: 'POST',
-        body: JSON.stringify(info),
-        headers: {'Content-type': 'application/json'}
-    });
-
-    if(!res.ok)
-    {
-      throw new Error('Something went wrong!')
-    }
-    const data = await res.json();
-    console.log(data);
-  } catch(err){
-    console.log(err);
-  }
-};
 
   return (
     <Fragment>
@@ -94,7 +72,7 @@ function App() {
           <Login />
         </Route>
         <Route path="/contactUs">
-          <ContactUs onAddQuery={userInfoHandler} />
+          <ContactUs />
         </Route>
       </switch>
       </main>

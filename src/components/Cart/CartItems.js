@@ -5,13 +5,20 @@ import classes from "./CartItems.module.css";
 const CartItems = (props) => {
   const price = `$${props.product.price}`;
   const cartCntx = useContext(CartContext);
+
+  const array = cartCntx.items;
+    console.log(array);
   
-  const deleteItemHandler = ()=>{
-    const deletedItem = cartCntx.removeItem(props.product.id);
-    console.log(deletedItem);
-//     const le = props.product.forEach((elem, index )=> elem.splice(1, index))
-//     console.log(le)
-}
+  const deleteItemHandler = ((id) => {
+    console.log('deleting', id);
+    cartCntx.removeItem(id)
+
+    // const deletedItem = array.forEach((elem, index )=>{array.splice(index, 1)})
+    // const deletedItem = array.findIndex((item) => {item.id === id})
+    // const el = array.filter(item => item.id !== id)
+    // return array;
+    // console.log(deletedItem);
+})
   return (
     <li id={props.product.id} key={props.id}>
       <div className={classes.container}>
@@ -22,7 +29,7 @@ const CartItems = (props) => {
         <span className={classes.price}>{price}</span>
         <div className={classes.quantity}>
           <span>{props.product.quantity}</span>
-          <button onClick={deleteItemHandler}>REMOVE</button>
+          <button onClick={(() => {deleteItemHandler(props.product.id)})}>REMOVE</button>
         </div>
       </div>
     </li>

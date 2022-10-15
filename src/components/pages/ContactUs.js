@@ -1,3 +1,4 @@
+import axios from 'axios';
 import { useRef } from 'react';
 import Button from '../UI/Button';
 import classes from './ContactUs.module.css';
@@ -7,22 +8,30 @@ const ContactUs = (props) => {
     const emailIdRef = useRef('');
     const phoneNumberRef = useRef('');
 
-    const submitHandler = (event) => {
+    const userInfoHandler = async(event) => {
         event.preventDefault();
 
-        const productArray = {
-            name: nameRef.current.value,
-            emailId: emailIdRef.current.value,
-            phoneNumber: phoneNumberRef.current.value
-        }
-        props.onAddQuery(productArray)
-    }
+        try {
+            const userInfo = {
+                name: nameRef.current.value,
+                emailId: emailIdRef.current.value,
+                phoneNumber: phoneNumberRef.current.value
+            }
+        const res = await axios.post(
+            'https://e-commerce-af028-default-rtdb.firebaseio.com/userInfo.json',
+            userInfo
+        )
+        console.log(res);
+    } catch (err) {
+        console.log(err);
+      }
+};
     
     return (
         <section className={classes.wrapper}>
             <h1>Contact Us</h1>
             <div className={classes.control}>
-                <form onSubmit={submitHandler}>
+                <form onSubmit={userInfoHandler}>
                     <label htmlFor='name'>Name</label>
                     <input type='text' id='name' ref={nameRef}></input>
                     <label htmlFor='email-id'>Email ID</label>

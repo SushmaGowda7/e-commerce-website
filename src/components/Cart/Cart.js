@@ -15,11 +15,10 @@ const Cart = (props) => {
     const [price, setPrice] = useState(0);
 
     useEffect(() => {
-        const userEmailId = authCntx.email.split('@').join('');
-        const newEmailId = userEmailId.split('.').join('');
+        const newEmailId = authCntx.email.replace(/[^a-zA-Z0-9]/g, "");
        
         const fetch = async () => {
-            const res = await axios.get(`https://crudcrud.com/api/13bebb7b723a4f5496dbc4056838b542/cart${newEmailId}`);
+            const res = await axios.get(`https://crudcrud.com/api/8d065053cb4547cda733e7ec5280cc1a/cart${newEmailId}`);
             
             const cartProduct = res.data;
 
@@ -48,7 +47,7 @@ const Cart = (props) => {
     }, [authCntx.email, cartCtx, price])
     
     const cartItemsList = list.map((item) => (
-        <ul key={props.id} className={classes.ul}>
+        <ul key={props.id} id={props.id} className={classes.ul}>
             <CartItems product={item} />
         </ul>
     ));
