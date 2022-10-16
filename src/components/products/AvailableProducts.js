@@ -1,12 +1,10 @@
 import Products from "./Products";
 import classes from "./AvailableProducts.module.css";
-import { Fragment, useContext, useEffect } from "react";
-import AuthContext from "../store/auth-context";
+import { Fragment, useContext } from "react";
 import CartContext from "../store/cart-context";
 import axios from "axios";
 
 const AvailableProducts = (props) => {
-    const authCntx = useContext(AuthContext);
     const cartCntx = useContext(CartContext);
 
     const productsArr = [
@@ -36,11 +34,10 @@ const AvailableProducts = (props) => {
         }
     ];
 
-    useEffect(() => {
-        const newEmailId = authCntx.email.replace(/[^a-zA-Z0-9]/g, "");
+    const newEmailId = localStorage.getItem('email')
         const getCart = async () => {
             try {
-                const res = await axios.get(`https://crudcrud.com/api/8d065053cb4547cda733e7ec5280cc1a/cart${newEmailId}`);
+                const res = await axios.get(`https://crudcrud.com/api/71562618bffb4c31820bc73ff27bfa04/cart${newEmailId}`);
                 
                 const cartData = res.data;
                 const cartLength = res.data.length;
@@ -54,13 +51,13 @@ const AvailableProducts = (props) => {
         };
 
         getCart();
-    }, [cartCntx, authCntx.email]);
 
     const productList = productsArr.map((item) => (
         <ul key={item.id}>
           <Products data={item} />
         </ul>
       ));
+      
 
     return(
         <Fragment>

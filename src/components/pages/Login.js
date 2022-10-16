@@ -32,6 +32,9 @@ const Login = () => {
             
             authCntx.login(token, email);
             history.replace('/store');   
+            console.log("Login Success")
+            localStorage.setItem('email', response.data.email.replace('@','').replace('.', ''))
+      
             } catch (err) {
                 console.log(err);
                 alert(err);

@@ -13,7 +13,7 @@ const AuthContextProvider = (props) => {
         setToken(token);
         setEmail(email);
         localStorage.setItem('token', token);
-        localStorage.setItem('email', email);
+        localStorage.setItem('email', email.replace('@','').replace('.', ''))
     };
 
     const contextValue = {

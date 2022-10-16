@@ -1,32 +1,30 @@
-import { Fragment, useContext, useEffect, useState } from 'react';
-import classes from './App.module.css';
-import Cart from './components/Cart/Cart';
-import Footer from './components/layout/Footer';
-import Header from './components/layout/Header';
-import AvailableProducts from './components/products/AvailableProducts';
+import React, { Fragment, Suspense, useContext, useState } from 'react';
 import { Redirect, Route } from 'react-router-dom';
-import About from './components/pages/About';
-import Home from './components/pages/Home';
-import ContactUs from './components/pages/ContactUs';
-import ProductDetail from './components/products/ProductDetail';
-import Login from './components/pages/Login';
-import AuthContext from './components/store/auth-context';
-import CartContext from './components/store/cart-context';
 import axios from 'axios';
+import classes from './App.module.css';
+import Header from './components/layout/Header';
+import Footer from './components/layout/Footer';
+import Cart from './components/Cart/Cart';
+import AuthContext from './components/store/auth-context';
+
+const Home = React.lazy(() => import('./components/pages/Home'));
+const Login = React.lazy(() => import('./components/pages/Login'));
+const About = React.lazy(() => import('./components/pages/About'));
+const ContactUs = React.lazy(() => import('./components/pages/ContactUs'));
+const ProductDetail = React.lazy(() => import('./components/products/ProductDetail'));
+const AvailableProducts = React.lazy(() => import('./components/products/AvailableProducts'));
+
 
 function App() {
   const [cartIsShown, setCartIsShown] = useState(false);
   const [cartLength, setCartLength] = useState(0);
   
   const authCntx = useContext(AuthContext);
-  const cartCntx = useContext(CartContext);
-  console.log(cartCntx.items);
 
-  useEffect(() => {
-    const newEmailId = authCntx.email.replace(/[^a-zA-Z0-9]/g, "");
+    const newEmailId = localStorage.getItem('email')
     const getCart = async () => {
       try {
-        const response = await axios.get(`https://crudcrud.com/api/8d065053cb4547cda733e7ec5280cc1a/cart${newEmailId}`);
+        const response = await axios.get(`https://crudcrud.com/api/71562618bffb4c31820bc73ff27bfa04/cart${newEmailId}`);
         console.log(response);
         console.log(response.data.length);
         setCartLength(response.data.length);
@@ -35,7 +33,6 @@ function App() {
       }
     };
     getCart();
-  });
 
   const showCartHandler =() => {
     setCartIsShown(true)
@@ -50,6 +47,7 @@ function App() {
       {cartIsShown && <Cart onClose ={hideCartHandler}/>}
       <Header onShow={showCartHandler} data={cartLength}/>
       <main>
+      <Suspense fallback={<p>Loading...</p>}>
       <switch>
         <Route path="/" exact>
           <Home />
@@ -75,6 +73,7 @@ function App() {
           <ContactUs />
         </Route>
       </switch>
+      </Suspense>
       </main>
       <div className={classes.footer}>
         <Footer />

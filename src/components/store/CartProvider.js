@@ -1,27 +1,22 @@
-import { useContext, useState } from "react";
+import { useState } from "react";
 import CartContext from "./cart-context";
-import AuthContext from "./auth-context";
 import axios from "axios";
 
 const CartProvider = (props) => {
     const [items, setItems] = useState([]);
     const [quantity, setQuantity] = useState(0);
-    const authCntx = useContext(AuthContext);
     
     const newArray = [...items];
     console.log(newArray);
 
     let cartLength = 0;
-    
-    const userEmailId = authCntx.email.split('@').join('');
-    const newEmailId = userEmailId.split('.').join('');  
-    const url = `https://crudcrud.com/api/8d065053cb4547cda733e7ec5280cc1a/cart${newEmailId}`;
+    const newEmailId = localStorage.getItem('email')
+    const url = `https://crudcrud.com/api/71562618bffb4c31820bc73ff27bfa04/cart${newEmailId}`;
         
     const addItemsToCartHandler = async (product) => {
         
         const indx = newArray.findIndex((item) => {
             if(item.id === product.id){
-                console.log('executed')
                 console.log(item.id);
                 console.log(product.id);
                 return item;

@@ -1,24 +1,21 @@
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useState } from 'react';
 import CartContext from '../store/cart-context';
 import Button from '../UI/Button';
 import classes from'./Cart.module.css';
 import CartCloseButton from './CartCloseButton';
 import Modal from '../UI/Modal';
 import CartItems from "./CartItems";
-import AuthContext from '../store/auth-context';
 import axios from "axios";
 
 const Cart = (props) => {
     const cartCtx = useContext(CartContext);
-    const authCntx = useContext(AuthContext);
     const [list, setList] = useState([]);
     const [price, setPrice] = useState(0);
 
-    useEffect(() => {
-        const newEmailId = authCntx.email.replace(/[^a-zA-Z0-9]/g, "");
+    const newEmailId = localStorage.getItem('email')
        
         const fetch = async () => {
-            const res = await axios.get(`https://crudcrud.com/api/8d065053cb4547cda733e7ec5280cc1a/cart${newEmailId}`);
+            const res = await axios.get(`https://crudcrud.com/api/71562618bffb4c31820bc73ff27bfa04/cart${newEmailId}`);
             
             const cartProduct = res.data;
 
@@ -44,13 +41,16 @@ const Cart = (props) => {
             
         }
         fetch()
-    }, [authCntx.email, cartCtx, price])
     
     const cartItemsList = list.map((item) => (
         <ul key={props.id} id={props.id} className={classes.ul}>
             <CartItems product={item} />
         </ul>
     ));
+    const purchaseHandler = () => {
+        alert('Thanks for the purchase');
+        setList([])
+    }
     
 return(
     <Modal onClose={props.onClose}>
@@ -69,7 +69,7 @@ return(
                 <strong>Total</strong>
             </span>
         </div>
-        <Button>Purchase</Button>
+        <Button onClick={purchaseHandler}>Purchase</Button>
         </div>
     </Modal>
     );
