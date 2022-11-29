@@ -13,21 +13,14 @@ const AuthContextProvider = (props) => {
         setToken(token);
         setEmail(email);
         localStorage.setItem('token', token);
-        localStorage.setItem('email', email);
+        localStorage.setItem('email', email.replace('@','').replace('.', ''))
     };
-
-    const logoutHandler =() => {
-        setToken(null);
-        localStorage.removeItem('token');
-        localStorage.removeItem('email');
-    }
 
     const contextValue = {
         token: token,
         email: email,
         isLoggedIn: userLoggedIn,
         login: loginHandler,
-        logout: logoutHandler
     }
     return (
         <AuthContext.Provider value={contextValue}>

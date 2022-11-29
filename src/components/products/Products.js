@@ -6,13 +6,11 @@ import classes from "./Products.module.css";
 
 const Products = (props) => {
 
-  const cartCtx = useContext(CartContext)
-
-  const price = `${props.data.price}`;
+  const cartCtx = useContext(CartContext);
 
   const addItemHandler = () => {
     cartCtx.addItem({...props.data, quantity: 1})
-  }
+  };
 
   return (
     <li key={props.id} id={props.id}>
@@ -31,7 +29,7 @@ const Products = (props) => {
       </div>
         <div className={classes.wrapper}>
         <span>$
-          <span>{price}</span>
+          <span>{props.data.price}</span>
         </span>
           <Button onClick={addItemHandler}>Add To Cart</Button>
         </div>
